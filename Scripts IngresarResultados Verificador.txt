@@ -71,8 +71,7 @@ BEGIN
  end
   if @estadoE = 11
   begin
-  update OrdenExamen set validado=null,fechaValidado=null,idUsuarioValidado=null,conforme=null, motivoNoConforme=null,estatusE=10,  
-  fechaIngEdicion=GETDATE(),idUsuarioIngEdicion=@IdUsuario,idExamenMetodo = @idExamenMetodo   
+  update OrdenExamen set fechaEdicion=GETDATE(),idUsuarioEdicion=@IdUsuario   
   where idOrdenExamen=@idOrdenExamen  
   ---Insertamos un nuevo registro a la tabla ordenresultadoanalito
   
@@ -91,7 +90,7 @@ BEGIN
   insert into OrdenResultadoAnalito values(@IdOrdenResultadoAnalito, @idOrdenExamen,@idAnalito,@nuevSecuen,@orden,@CodigoOpcion,
 											@Resultado,@Observacion,1,GETDATE(),@IdUsuario,GETDATE(),@IdUsuario)
   
-  update OrdenResultadoAnalito set estado = 0 where idOrdenResultadoAnalito = @IdOrdenResultadoAnalito and idSecuen = @idSecuen  
+  --update OrdenResultadoAnalito set estado = 0 where idOrdenResultadoAnalito = @IdOrdenResultadoAnalito and idSecuen = @idSecuen  
   
   end
  
