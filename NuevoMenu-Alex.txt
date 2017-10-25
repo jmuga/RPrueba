@@ -1,0 +1,1 @@
+update Menu set nombre='Edición de Resultados', descripcion='Edición de Resultados',idMenuPadre=4, estado=1 where idMenu=13
