@@ -1,11 +1,8 @@
-USE [NetLab2-Ogis]
-GO
---*******************MODIFICcion de la Tabla ORDEN RESULTADO ANALITO
-
-
-ALTER TABLE OrdenResultadoAnalito
-    ADD idSecuen int NOT NULL;
-
+ALTER TABLE OrdenResultadoAnalito   ADD idSecuen int;
+Update OrdenResultadoAnalito set idSecuen = 1;
+ALTER TABLE OrdenResultadoAnalito ALTER COLUMN idSecuen int NOT NULL
+--borrar  de OrdenResultadoAnalito
+ALTER TABLE OrdenResultadoAnalito DROP CONSTRAINT PK_OrdenResultadoAnalito 
 
 /****** Object:  Index [PK_OrdenResultadoAnalito]    Script Date: 10/23/2017 20:28:03 ******/
 ALTER TABLE [dbo].[OrdenResultadoAnalito] ADD  CONSTRAINT [PK_OrdenResultadoAnalito] PRIMARY KEY CLUSTERED 

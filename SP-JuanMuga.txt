@@ -1,0 +1,52 @@
+USE [NetLab2-Ogis]
+GO
+/****** Object:  StoredProcedure [dbo].[pNLS_DatosPacienteByNroDocumento]    Script Date: 10/25/2017 15:32:48 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+/*******************************************************************************  
+Descripcion: Obtiene información de las ordenes y muestras con resutlado de un paciente.
+Creado por: Juan Muga  
+Fecha Creacion: 01/10/2017  
+Modificacion: Se agegaron comentarios 
+exec  pNLS_DatosPacienteByNroDocumento '43699165'
+*******************************************************************************/  
+ALTER PROCEDURE [dbo].[pNLS_DatosPacienteByNroDocumento]  
+@nroDocumento varchar(12)
+AS  
+  
+BEGIN  
+select distinct 
+		IdOrden = o.idOrden,
+		FechaSolicitud = o.fechaSolicitud,
+		FechaObtencion = om.fechaColeccion,
+		Orden = o.codigoOrden,
+		EstablecimientoOrigen = e.codigoUnico+' - '+e.nombre,      
+		ID_Muestra = mc.codificacion,
+		Enfermedad = enf.nombre ,
+		Examen = ex.nombre,
+		Componente = (Select Nombre from Analito where idAnalito = ora.idAnalito),   
+		Resultado = ora.Resultado, 
+		oe.ingresado, 
+		oe.validado,
+		oe.EstatusE,
+		EstatusResultado = ldx2.Glosa
+from Orden o (nolock)      
+inner join OrdenExamen oe (nolock) on oe.idOrden = o.idOrden       
+inner join Examen ex (nolock) on ex.idExamen = oe.idExamen       
+inner join Enfermedad enf (nolock) on enf.idEnfermedad = oe.idEnfermedad       
+left join ExamenMetodo em (nolock) on em.idExamenMetodo = oe.idExamenMetodo       
+left  join OrdenResultadoAnalito ora (nolock) on ora.idOrdenExamen = oe.idOrdenExamen      
+inner join Establecimiento e (nolock) on e.idEstablecimiento = o.idEstablecimiento and e.tipo = 1      
+inner join OrdenMuestra om (nolock) on om.idOrden = o.idOrden       
+inner join MuestraCodificacion mc (nolock) on mc.idMuestraCod = om.idMuestraCod       
+inner join OrdenMaterial oma (nolock) on oma.idOrdenMuestra = om.idOrdenMuestra and oma.idOrden=o.idOrden       
+and oma.idOrden=om.idOrden and oma.idOrden=oe.idOrden and oma.idOrdenExamen=oe.idOrdenExamen      
+left join OrdenMuestraRecepcion omr (nolock) on omr.idOrdenMaterial = oma.idOrdenMaterial       
+and omr.idOrden=o.idOrden and om.idOrden=omr.idOrden and oma.idOrden=omr.idOrden and omr.idOrden=oe.idOrden 
+inner join Paciente p (nolock) on p.idPaciente = o.idPaciente            
+left join ListaDetalle ldx2 (nolock) on oe.estatusE = ldx2.idDetalleLista and ldx2.idLista = 16       
+where LTRIM(RTRIM(p.nroDocumento)) = @nroDocumento 
+
+End
