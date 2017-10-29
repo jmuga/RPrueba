@@ -19,13 +19,20 @@ GO
 
 --*********************** store modificado
 
+USE [NetLab2-Ogis]
+GO
+/****** Object:  StoredProcedure [dbo].[pNLU_OrdenResultadoAnalitoResultado]    Script Date: 10/23/2017 21:32:24 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 /*******************************************************************************  
 Descripcion: Registra los resultados de la prueba ejecutada.  
 Creado por: Terceros  
 Fecha Creacion: 01/01/2017  
 Modificacion: Se agegaron comentarios  
 *******************************************************************************/  
-alter PROCEDURE  [dbo].[pNLU_OrdenResultadoAnalitoResultado]  
+ALTER PROCEDURE  [dbo].[pNLU_OrdenResultadoAnalitoResultado]  
 @IdOrdenResultadoAnalito uniqueidentifier,  
 @Resultado varchar(800),  
 @IdUsuario int,   
@@ -69,6 +76,9 @@ BEGIN
   set resultado = @Resultado,observacion = @Observacion,idUsuarioEdicion = @IdUsuario,fechaEdicion = GETDATE(), codigoOpcion = @CodigoOpcion  
   where idOrdenResultadoAnalito = @IdOrdenResultadoAnalito  
  end
+ 
+ 
+ /***AGREGADO X SOTERO BUSTAMANTE PARA INSERTAR NUEVO RESULTADO POR VERIFICADOR*/
   if @estadoE = 11
   begin
   update OrdenExamen set fechaEdicion=GETDATE(),idUsuarioEdicion=@IdUsuario   
