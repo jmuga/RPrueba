@@ -1,0 +1,23 @@
+
+/*******************************************************************************  
+Descripcion: Registra la información del resultado en la tabla OrdenResultadoAnalito  
+Creado por: Terceros  
+Fecha Creacion: 01/01/2017  
+Modificacion: Se agegaron comentarios  
+*******************************************************************************/  
+ALTER PROCEDURE  [dbo].[pNLI_OrdenResultadoAnalito]  
+@IdOrden uniqueidentifier  
+AS  
+BEGIN  
+ INSERT INTO OrdenResultadoAnalito (idOrdenExamen,idAnalito,orden,idSecuen)   
+ SELECT distinct oe.idOrdenExamen, ea.idAnalito,ea.ordenAnalito,1 
+ FROM ExamenAnalito ea  
+ INNER JOIN Examen e ON e.idExamen = ea.idExamen  
+ INNER JOIN OrdenExamen oe ON oe.idExamen = e.idExamen and oe.idExamen=ea.idExamen  
+ INNER JOIN OrdenMaterial omat ON omat.idOrdenExamen = oe.idOrdenExamen and oe.idOrden=omat.idOrden  
+ INNER JOIN OrdenMuestraRecepcion omtre ON omtre.idOrdenMaterial = omat.idOrdenMaterial and omtre.idOrden=omat.idOrden and omtre.idOrden=oe.idOrden  
+ WHERE ea.estado=1 and e.estado=1 and oe.estado = 1  and omtre.estado = 1 and omat.estado=1 and oe.idOrden ='F6F55F74-2731-43C3-896A-2B320357D58F'    
+ AND omtre.estatus = 3 and oe.idOrdenExamen not in   
+ (select x1.idOrdenExamen from OrdenResultadoAnalito x1 inner join OrdenExamen x2 on x2.idOrdenExamen=x1.idOrdenExamen 
+  where x2.idOrden='F6F55F74-2731-43C3-896A-2B320357D58F')  
+END
