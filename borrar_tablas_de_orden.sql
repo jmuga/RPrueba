@@ -1,0 +1,11 @@
+delete OrdenMuestraResultadoRechazo
+delete OrdenResultadoAnalito
+delete OrdenMuestraRecepcionRechazo
+delete OrdenMuestraRecepcion
+delete OrdenExamenOrdenMuestra
+delete OrdenDatoClinico
+delete OrdenMuestra
+delete OrdenMaterial
+delete OrdenExamen
+delete Orden
+delete MuestraCodificacion
