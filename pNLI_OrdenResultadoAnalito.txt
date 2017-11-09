@@ -16,8 +16,8 @@ BEGIN
  INNER JOIN OrdenExamen oe ON oe.idExamen = e.idExamen and oe.idExamen=ea.idExamen  
  INNER JOIN OrdenMaterial omat ON omat.idOrdenExamen = oe.idOrdenExamen and oe.idOrden=omat.idOrden  
  INNER JOIN OrdenMuestraRecepcion omtre ON omtre.idOrdenMaterial = omat.idOrdenMaterial and omtre.idOrden=omat.idOrden and omtre.idOrden=oe.idOrden  
- WHERE ea.estado=1 and e.estado=1 and oe.estado = 1  and omtre.estado = 1 and omat.estado=1 and oe.idOrden ='F6F55F74-2731-43C3-896A-2B320357D58F'    
+ WHERE ea.estado=1 and e.estado=1 and oe.estado = 1  and omtre.estado = 1 and omat.estado=1 and oe.idOrden =@IdOrden    
  AND omtre.estatus = 3 and oe.idOrdenExamen not in   
  (select x1.idOrdenExamen from OrdenResultadoAnalito x1 inner join OrdenExamen x2 on x2.idOrdenExamen=x1.idOrdenExamen 
-  where x2.idOrden='F6F55F74-2731-43C3-896A-2B320357D58F')  
+  where x2.idOrden=@IdOrden)  
 END
