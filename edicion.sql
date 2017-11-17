@@ -1,0 +1,1 @@
+update Menu set icon='edicion.png' where idMenu=13
