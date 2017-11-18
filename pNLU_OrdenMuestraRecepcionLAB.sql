@@ -1,7 +1,7 @@
 /*******************************************************************************    
 Descripcion: Registra los recepcion de la muestra en Labortorio     
              Estado = 5    
-Creado por: TERCEROS
+Creado por: Terceros    
 Fecha Creacion: 01/01/2017    
 Modificacion: Se agegaron comentarios    
 *******************************************************************************/    
@@ -10,7 +10,7 @@ ALTER PROCEDURE  [dbo].[pNLU_OrdenMuestraRecepcionLAB]
 @idUsuario int,  
 @secuenObtencion int   
 AS
-/*MODIFICADO POR SOTERO 30/10/2017 ACTUALIZAR ORDEN DE SECUENCIA*/
+
 DECLARE @LAB INT 
 SET @LAB = (SELECT idLaboratorioDestino FROM OrdenMuestraRecepcion WHERE idOrdenMuestraRecepcion = @idOrdenMuestraRecepcion)
 		
