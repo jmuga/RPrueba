@@ -6,7 +6,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 --877d88eb-8d3f-4e21-bcb7-1afa7d64ae3c|991|1005635|8b4a5e51-6cea-425f-8789-b2fe7bf7abe1|1|NaN|NaN|94|0|1|1|1  
-ALTER PROCEDURE [dbo].[pNLI_InsertarNuevoExamenAnalista]  
+CREATE PROCEDURE [dbo].[pNLI_InsertarNuevoExamenAnalista]  
  @Lista varchar(max),  
  @idEstablecimiento int,  
  @idUsuario int  
