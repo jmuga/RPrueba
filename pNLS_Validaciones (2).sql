@@ -23,6 +23,7 @@ if @NroOficio is null
           
 if @CodigoOrden is null          
  set @CodigoOrden=''          
+
           
 SET NOCOUNT ON          
 if @FechaSolicitud=1          
@@ -54,11 +55,11 @@ BEGIN
   and o.estado = 1 and oe.estado = 1 and om.estado = 1 and omr.conformeR=1 and omr.estado = 1           
   and oma.estado=1 and oe.ingresado=1 and (oe.validado is null or oe.validado=1)          
   and (oe.estatusE=10 or oe.estatusE=11)          
-  and (LTRIM(RTRIM(o.nroOficio)) LIKE '%'+ LTRIM(RTRIM(@NroOficio)) + '%')          
-  and (@NroDocumento is null or @NroDocumento = '' or LTRIM(RTRIM(p.nroDocumento)) LIKE '%'+ LTRIM(RTRIM(@NroDocumento)) + '%')          
-  and ((LTRIM(RTRIM(mc.codificacion)) LIKE '%'+ LTRIM(RTRIM(@CodigoOrden)) + '%')          
-  or (LTRIM(RTRIM(o.codigoOrden)) LIKE '%'+ LTRIM(RTRIM(@CodigoOrden)) + '%'))          
-  and omr.idLaboratorioDestino =@IdLaboratorioUsuario           
+  and (@NroOficio is null or @NroOficio = '' or (LTRIM(RTRIM(o.nroOficio)) LIKE '%'+ LTRIM(RTRIM(@NroOficio)) + '%'))    
+  and (@NroDocumento is null or @NroDocumento = '' or (LTRIM(RTRIM(p.nroDocumento)) LIKE '%'+ LTRIM(RTRIM(@NroDocumento)) + '%')  )  
+  and (@CodigoOrden is null or @CodigoOrden = '' or ((LTRIM(RTRIM(mc.codificacion)) LIKE '%'+ LTRIM(RTRIM(@CodigoOrden)) + '%') )   
+   or (LTRIM(RTRIM(o.codigoOrden)) LIKE '%'+ LTRIM(RTRIM(@CodigoOrden)) + '%'))    
+  and omr.idLaboratorioDestino = @IdLaboratorioUsuario           
   and (@Estado is null or @Estado = 0 or oe.estatusE=@Estado)
   AND o.fechaSolicitud between @FechaDesde AND convert(varchar(10),convert(datetime,@FechaHasta)+1,112)          
  group by  o.idOrden, o.idEstablecimiento, e.nombre, e.codigoUnico, p.nroDocumento,     
@@ -98,11 +99,12 @@ BEGIN
   and o.estado = 1 and oe.estado = 1 and om.estado = 1 and omr.conformeR=1 and omr.estado = 1           
   and oma.estado=1 and oe.ingresado=1 and (oe.validado is null or oe.validado=1)          
   and (oe.estatusE=10 or oe.estatusE=11)          
-  and (LTRIM(RTRIM(o.nroOficio)) LIKE '%'+ LTRIM(RTRIM(@NroOficio)) + '%')          
-  and (@NroDocumento is null or @NroDocumento = '' or LTRIM(RTRIM(p.nroDocumento)) LIKE '%'+ LTRIM(RTRIM(@NroDocumento)) + '%')          
-  and ((LTRIM(RTRIM(mc.codificacion)) LIKE '%'+ LTRIM(RTRIM(@CodigoOrden)) + '%')          
-  or (LTRIM(RTRIM(o.codigoOrden)) LIKE '%'+ LTRIM(RTRIM(@CodigoOrden)) + '%'))          
-  and omr.idLaboratorioDestino =@IdLaboratorioUsuario           
+  and (@NroOficio is null or @NroOficio = '' or (LTRIM(RTRIM(o.nroOficio)) LIKE '%'+ LTRIM(RTRIM(@NroOficio)) + '%'))    
+  and (@NroDocumento is null or @NroDocumento = '' or (LTRIM(RTRIM(p.nroDocumento)) LIKE '%'+ LTRIM(RTRIM(@NroDocumento)) + '%')  )  
+  and (@CodigoOrden is null or @CodigoOrden = '' or ((LTRIM(RTRIM(mc.codificacion)) LIKE '%'+ LTRIM(RTRIM(@CodigoOrden)) + '%') )   
+   or (LTRIM(RTRIM(o.codigoOrden)) LIKE '%'+ LTRIM(RTRIM(@CodigoOrden)) + '%'))           
+  and omr.idLaboratorioDestino = @IdLaboratorioUsuario           
+  and (@Estado is null or @Estado = 0 or oe.estatusE=@Estado)
   AND om.fechaColeccion between @FechaDesde AND convert(varchar(10),convert(datetime,@FechaHasta)+1,112)          
  group by  o.idOrden, o.idEstablecimiento, e.nombre, e.codigoUnico, p.nroDocumento, fechaSolicitud, o.fechaRegistro, o.idPaciente,     
  o.codigoOrden, o.nroOficio, ldtd.glosa, ld.glosa, o.estatus,omr.estatusP,P.genero,fechaNacimiento,OM.fechaColeccion,estatusSol,o.idProyecto         
