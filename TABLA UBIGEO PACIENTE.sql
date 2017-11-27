@@ -1,27 +1,8 @@
 USE [NetLab2-Ogis]
 GO
-USE [NetLab2-Ogis]
-GO
-
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_Ubigeo_estado]') AND type = 'D')
-BEGIN
-ALTER TABLE [dbo].[Ubigeo] DROP CONSTRAINT [DF_Ubigeo_estado]
-END
-
-GO
-
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_Ubigeo_fechaRegistro]') AND type = 'D')
-BEGIN
-ALTER TABLE [dbo].[Ubigeo] DROP CONSTRAINT [DF_Ubigeo_fechaRegistro]
-END
-
-GO
-
-USE [NetLab2-Ogis]
-GO
 
 /****** Object:  Table [dbo].[Ubigeo]    Script Date: 11/24/2017 17:47:55 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Ubigeo]') AND type in (N'U'))
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[UbigeoPaciente]') AND type in (N'U'))
 DROP TABLE [dbo].[UbigeoPaciente]
 GO
 
